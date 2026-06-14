@@ -1,0 +1,94 @@
+<div class="card rounded-4 fade-in bg-dark-edition text-white border border-secondary border-opacity-25"
+    style="height: 10rem;" [ngClass]="{'overflow-hidden': stateService.isLightTheme()}"
+    [ngStyle]="{'visibility': playerState.songs().length>0 ? 'visible' : 'hidden'}">
+    <img [src]="playerState.currentSong().thumbnail" class="card-img rounded-3 blur-filter my-auto"
+        style="height: 8.3rem;" alt="Music" loading="lazy" />
+    <div class="card-img-overlay">
+        <div class="d-flex gap-2">
+            <div style="height: 4.4rem; width: 4.4rem;">
+                <img [src]="playerState.currentSong().thumbnail" class="img-fluid rounded-4" alt="..." loading="lazy">
+            </div>
+            <div class="ms-1 flex-grow-1">
+                <div class="font-w-500">{{playerState.currentSong().songName}}</div>
+                <div class="text-small">{{playerState.currentSong().artist}}</div>
+            </div>
+            <div>
+                <button aria-labelledby="openYoutubeLink" aria-label="openYoutubeLink"
+                    class="btn btn-transparent p-0 border-0 shadow-none"
+                    (click)="openLink(playerState.currentSong().yt_link)">
+                    <svg width="21" height="21" viewBox="0 -3 20 20" xmlns="http://www.w3.org/2000/svg" fill="#fff"
+                        stroke="#fff">
+                        <g stroke-width="0" />
+                        <g stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M7.988 9.586V3.974c1.993.938 3.536 1.843 5.36 2.82-1.505.834-3.367 1.77-5.36 2.792m11.103-8.403c-.344-.453-.93-.805-1.553-.922-1.833-.348-13.267-.349-15.099 0q-.752.142-1.328.673C-.5 2.429.005 10.452.393 11.751c.164.562.375.968.64 1.235.343.352.812.594 1.351.703 1.51.312 9.284.486 15.122.047a2.6 2.6 0 0 0 1.39-.712c1.49-1.49 1.388-9.962.195-11.841"
+                            fill-rule="evenodd" stroke="none" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="d-flex align-items-center my-1">
+            <input #progressBar type="range" class="w-100" min="0" aria-label="Progress Bar"
+                [max]="this.app.audioEl!=undefined?this.app.audioEl?.duration || 0: 0" step="0.001" (input)="seekAudio($event)"
+                (mousedown)="onSeekStart()" (mouseup)="onSeekEnd()" (touchstart)="onSeekStart()"
+                (touchend)="onSeekEnd()">
+
+            <div class="ms-1 text-small time-display">
+                {{ (currentSongTime()/60) | number:'1.2-2' }}
+            </div>
+        </div>
+        <div class="d-flex justify-content-around pb-1 align-items-center">
+            @if(playerState.canPlayAudio()){
+            <button class="btn btn-transparent border-0 shadow-none"
+                (click)="playerState.canPlayAudio.set(false);previousSong()">
+                <svg width="19" height="19" viewBox="0 -2 12 12" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                    <g stroke-width="0" />
+                    <g stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M11.999.868v6.263c0 .714-1.145 1.122-1.781.694L5.999 5.14v1.991c0 .714-.573 1.122-1.209.694L.479 4.693c-.514-.347-.681-1.04-.167-1.387L4.79.176c.636-.43 1.209-.022 1.209.692v1.991L10.218.175c.636-.429 1.781-.02 1.781.693"
+                        fill-rule="evenodd" />
+                </svg>
+            </button>
+            <button class="btn btn-transparent border-0 shadow-none">
+                @if(playerState.currentSong().playingSong){
+                <svg (click)="pauseSong()" fill="#fff" width="21" height="21" viewBox="0 0 32 32"
+                    xmlns="http://www.w3.org/2000/svg" stroke="#fff" stroke-width="0">
+                    <g />
+                    <g stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M5.92 24.096q0 .832.576 1.408t1.44.608h4.032q.832 0 1.44-.608t.576-1.408V7.936q0-.832-.576-1.44t-1.44-.576H7.936q-.832 0-1.44.576t-.576 1.44zm12.096 0q0 .832.608 1.408t1.408.608h4.032q.832 0 1.44-.608t.576-1.408V7.936q0-.832-.576-1.44t-1.44-.576h-4.032q-.832 0-1.408.576t-.608 1.44z"
+                        stroke="none" />
+                </svg>
+                }
+                @else {
+                <svg (click)="playSong()" width="19" height="19" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g stroke-width="0" />
+                    <g stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M21.409 9.353a2.998 2.998 0 0 1 0 5.294L8.597 21.614C6.534 22.737 4 21.277 4 18.968V5.033c0-2.31 2.534-3.769 4.597-2.648z"
+                        fill="#fff" />
+                </svg>
+                }
+            </button>
+            <button class="btn btn-transparent border-0 shadow-none"
+                (click)="playerState.canPlayAudio.set(false);nextSong()">
+                <svg width="19" height="19" viewBox="0 -2 12 12" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+                    <g stroke-width="0" />
+                    <g stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="m11.684 4.694-4.477 3.13C6.571 8.254 6 7.846 6 7.132V5.141L1.78 7.825c-.635.429-1.78.02-1.78-.693V.869C0 .155 1.145-.253 1.78.175L6 2.86V.869c0-.714.571-1.122 1.207-.694l4.309 3.132c.514.347.682 1.04.168 1.387"
+                        fill-rule="evenodd" />
+                </svg>
+            </button>
+            }
+            @else {
+            <div class="px-1 py-2">
+                <div class="spinner-border spinner-border-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

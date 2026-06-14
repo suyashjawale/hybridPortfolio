@@ -1,0 +1,10 @@
+@if(stateService.isLargeScreen()){
+    @defer (on immediate) {
+        <app-l-navbar/>
+    }
+}
+@else {
+    @defer (on immediate) {
+        <app-s-navbar/>
+    }
+}

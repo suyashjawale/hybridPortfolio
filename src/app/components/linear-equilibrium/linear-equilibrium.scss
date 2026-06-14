@@ -1,0 +1,184 @@
+:host {
+    display: block;
+}
+
+.equilibrium-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 18rem;
+    position: relative;
+}
+
+/* ── Intro Card ── */
+.intro-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    animation: introEnter 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+
+    &.dissolving {
+        animation: introExit 800ms cubic-bezier(0.4, 0, 1, 1) forwards;
+    }
+}
+
+@keyframes introEnter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes introExit {
+    from {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0px);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(1.04);
+        filter: blur(4px);
+    }
+}
+
+/* ── Flag icon ── */
+.india-flag {
+    opacity: 0;
+    animation: flagDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 200ms forwards;
+}
+
+@keyframes flagDrop {
+    from {
+        opacity: 0;
+        transform: translateY(-16px) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ── Word reveal ── */
+.intro-text {
+    display: flex;
+    gap: 0.45em;
+    align-items: baseline;
+    font-size: clamp(1.5rem, 5vw, 2.3rem);
+    font-weight: 100;
+    letter-spacing: -0.01em;
+    color: var(--font-icon-bg-colour); // ← uses your theme variable
+}
+
+.word-reveal {
+    display: inline-block;
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    animation: wordSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) forwards;
+}
+
+@keyframes wordSlide {
+    from {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        clip-path: inset(0 0% 0 0);
+        transform: translateY(0);
+    }
+}
+
+/* "Suyash" — saffron→crimson→violet, inspired by the tricolour */
+.name-accent {
+    font-weight: 400;
+    background: var(--intro-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Subtitle ── */
+.intro-sub {
+    // display: flex;
+    // gap: 0.4em;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--font-icon-bg-accent-colour);
+    opacity: 0;
+    animation: fadeUp 0.5s ease 900ms forwards;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 0.6;
+        transform: translateY(0);
+    }
+
+    // stays at 0.6 for subtlety
+}
+
+/* ── Pulse ring ── */
+.pulse-ring {
+    position: absolute;
+    top: 28px; // roughly centered on the flag
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    // Uses theme colour so it's visible in both modes
+    border: 1px solid color-mix(in srgb, var(--font-icon-bg-colour) 25%, transparent);
+    animation: pulse 2.4s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(2.4);
+        opacity: 0;
+    }
+}
+
+/* ── Canvas ── */
+.canvas-reveal {
+    width: 18rem;
+    opacity: 0;
+    animation: canvasFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes canvasFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0px);
+    }
+}

@@ -1,0 +1,36 @@
+@if(blogs().length>0){
+<div [ngStyle]="{'margin-top': stateService.navHeight()+'px'}" class="container-xxl">
+    &nbsp;
+    <div class="row">
+        @for (blog of blogs(); let ind=$index; track ind) {
+        <div class="col-lg-3 col-md-6 col-12 px-2 pb-3">
+            <div class="border-10 rounded-4 d-flex flex-column h-100" (click)="goToBlog(blog.slug)">
+                <div class="ratio ratio-16x9">
+                    <div class="d-flex align-items-center">
+                        <div class="loader mx-auto" [ngStyle]="{'--loaderColor':'var(--font-icon-bg-colour)'}"></div>
+                    </div>
+                    <img [src]="blog.thumbnail" class="img-fluid rounded-top-4 glideUp" (load)="onImgLoad($event)"
+                            loading="lazy" />
+                </div>
+
+                <div class="p-3 pb-2 font-w-500 d-flex align-items-start justify-content-between">
+                    <div>{{blog.title}}</div>
+                    <span class="border opacity-75 rounded-1 px-3 py-1 text-x-small pointer">View</span>
+                </div>
+                <div class="px-3 mt-1 text-small opacity-75 flex-grow-1">{{blog.summary}}</div>
+                <div class="p-3 text-x-small text-end text-secondary">{{blog.publishedTime | date: 'MMMM d, yyyy h:mm:ss a'}}</div>
+
+            </div>
+        </div>
+        }
+    </div>
+</div>
+}
+@else {
+<div class="container-xxl d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+        <div>No blogs available</div>
+        <div class="text-x-small opacity-75">Check back soon</div>
+    </div>
+</div>
+}

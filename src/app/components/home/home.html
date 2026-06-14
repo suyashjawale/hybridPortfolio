@@ -1,0 +1,10 @@
+@if(stateService.isLargeScreen() || stateService.isMediumScreen()){
+     @defer (on immediate) {
+        <app-l-home/>
+    }
+}
+@else {
+    @defer (on immediate) {
+        <app-s-home/>
+    }
+}

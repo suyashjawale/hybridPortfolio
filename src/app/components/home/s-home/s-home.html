@@ -1,0 +1,458 @@
+<div class="container-fluid">
+    <div class="vh-100 d-flex align-items-center justify-content-center ">
+        <app-linear-equilibrium/>
+    </div>
+
+    @for (org of organizations(); let i = $index; track i) {
+    <div class="mb-4 rounded border border-secondary border-opacity-25">
+
+        <div class="d-flex gap-1 justify-content-between align-items-center border-bottom border-opacity-25 border-secondary p-3 mb-3">
+            <div>
+                <div class="font-w-500">
+                    {{org.org_name}}
+                </div>
+                <div class="text-small">
+                    <span class="allow-white-space">{{getExperience(org.joined_date,org.end_date)}}</span>
+                </div>
+            </div>
+            <div class="rounded-2 d-flex bg-white shadow-sm align-items-center justify-content-center org-logos">
+                <img [src]="org.logo_name" class="img-fluid p-1" alt="Company" loading="lazy" />
+            </div>
+        </div>
+
+
+        @for (role of org.roles; let j = $index; track j) {
+        <div class="my-3 px-3" [ngClass]="{'border-bottom border-secondary border-opacity-25':j<(org.roles.length-1)}">
+
+            <div class="font-w-500 mb-1">{{role.role_name}}</div>
+            <div class="text-small allow-white-space">{{getExperience(role.role_start,role.role_end)}}
+            </div>
+            @if(role.tag_line.length>0){
+            <div class="text-small my-3">
+                {{role.tag_line}}
+            </div>
+            }
+
+            @for (proj of role.projects; let k = $index; track k) {
+
+            <div class="mb-4 position-relative text-small p-3 bg-custom-shade rounded">
+
+                <div class="mb-2 font-w-500">
+                    {{proj.project_name}}
+                </div>
+                <div class="d-flex gap-2">
+                    @if(proj.show){
+                    <div>•</div>
+                    }
+                    <div>{{proj.project_content[0]}}</div>
+                </div>
+
+                <div class="collapse" [id]="'expProjectContent'+i+j+k">
+                    @for (cont of proj.project_content; let l = $index; track l) {
+                    @if(l>0){
+                    <div class="mt-2 d-flex gap-2">
+                        <div>•</div>
+                        <div>{{cont}}</div>
+                    </div>
+                    }
+                    }
+
+                    @if(proj.video_link){
+                    <div class="mt-3 w-100 rounded-3 border py-2 px-3 d-flex justify-content-between align-items-center"
+                        (click)="openLink(proj.video_link)">
+                        <div>
+                            <div class="text-small font-w-500">{{proj.project_name}}</div>
+                            <div class="text-x-small opacity-75">www.youtube.com</div>
+                        </div>
+                        <div>
+                            <svg width="35" height="35" viewBox="-3.68 -3.68 23.36 23.36"
+                                xmlns="http://www.w3.org/2000/svg" fill="none">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0">
+                                    <rect x="-3.68" y="-3.68" width="23.36" height="23.36" rx="11.68" fill="#ffffff"
+                                        strokewidth="0"></rect>
+                                </g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                </g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path fill="red"
+                                        d="M14.712 4.633a1.754 1.754 0 00-1.234-1.234C12.382 3.11 8 3.11 8 3.11s-4.382 0-5.478.289c-.6.161-1.072.634-1.234 1.234C1 5.728 1 8 1 8s0 2.283.288 3.367c.162.6.635 1.073 1.234 1.234C3.618 12.89 8 12.89 8 12.89s4.382 0 5.478-.289a1.754 1.754 0 001.234-1.234C15 10.272 15 8 15 8s0-2.272-.288-3.367z">
+                                    </path>
+                                    <path fill="#ffffff" d="M6.593 10.11l3.644-2.098-3.644-2.11v4.208z">
+                                    </path>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    }
+                </div>
+
+
+                @if(proj.project_content.length>1){
+                <span data-bs-toggle="collapse" name="expProject" aria-label="Click to expand project details"
+                    role="button" [attr.data-bs-target]="'#expProjectContent'+i+j+k" aria-expanded="false"
+                    [attr.aria-controls]="'expProjectContent'+i+j+k" (click)="proj.show=!proj.show"
+                    class="position-absolute translate-middle top-50 start-100">
+                    @if(proj.show){
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        transform="rotate(180)">
+                        <rect width="24" height="24" rx="12" fill="var(--expand-icon-colour)" />
+                        <g stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M5.707 9.71a1 1 0 0 0 0 1.415l4.892 4.887a2 2 0 0 0 2.828 0l4.89-4.89a1 1 0 1 0-1.414-1.415l-4.185 4.186a1 1 0 0 1-1.415 0L7.121 9.71a1 1 0 0 0-1.414 0"
+                            fill="#FFFF" />
+                    </svg>
+                    }
+                    @else{
+                    <svg width="17" height="17" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        stroke="#ffffff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0">
+                            <rect x="0" y="0" width="24.00" height="24.00" rx="12" fill="var(--expand-icon-colour)"
+                                strokewidth="0">
+                            </rect>
+                        </g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M6 12H18M12 6V18" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                    }
+                </span>
+                }
+
+            </div>
+
+            }
+        </div>
+        }
+
+    </div>
+    }
+
+    <div class="row g-1 text-small">
+        <div class="col-6">
+            <div class="d-flex bg-custom-shade p-3 rounded align-items-center gap-2"
+                (click)="openLink('https://github.com/suyashjawale')">
+                <div>
+                    <svg width="40" height="40" viewBox="-4 -4 28.00 28.00" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0">
+                            <rect x="-4" y="-4" width="28.00" height="28.00" rx="4.2" fill="#ffffff" strokewidth="0">
+                            </rect>
+                        </g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <title>github [#142]</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs> </defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)"
+                                    fill="#000000">
+                                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                                        <path
+                                            d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399"
+                                            id="github-[#142]"> </path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <div>suyashjawale</div>
+                    <div class="opacity-75">Github</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="d-flex bg-custom-shade p-3 rounded align-items-center gap-2"
+                (click)="openLink('https://www.instagram.com/suyash.a91/')">
+                <div>
+                    <svg width="40" height="40" viewBox="-4.8 -4.8 41.60 41.60" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0">
+                            <rect x="-4.8" y="-4.8" width="41.60" height="41.60" rx="6.24" fill="#ffffff"
+                                strokewidth="0"></rect>
+                        </g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#paint0_radial_87_7153)"></rect>
+                            <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#paint1_radial_87_7153)"></rect>
+                            <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#paint2_radial_87_7153)"></rect>
+                            <path
+                                d="M23 10.5C23 11.3284 22.3284 12 21.5 12C20.6716 12 20 11.3284 20 10.5C20 9.67157 20.6716 9 21.5 9C22.3284 9 23 9.67157 23 10.5Z"
+                                fill="white"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M16 21C18.7614 21 21 18.7614 21 16C21 13.2386 18.7614 11 16 11C13.2386 11 11 13.2386 11 16C11 18.7614 13.2386 21 16 21ZM16 19C17.6569 19 19 17.6569 19 16C19 14.3431 17.6569 13 16 13C14.3431 13 13 14.3431 13 16C13 17.6569 14.3431 19 16 19Z"
+                                fill="white"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M6 15.6C6 12.2397 6 10.5595 6.65396 9.27606C7.2292 8.14708 8.14708 7.2292 9.27606 6.65396C10.5595 6 12.2397 6 15.6 6H16.4C19.7603 6 21.4405 6 22.7239 6.65396C23.8529 7.2292 24.7708 8.14708 25.346 9.27606C26 10.5595 26 12.2397 26 15.6V16.4C26 19.7603 26 21.4405 25.346 22.7239C24.7708 23.8529 23.8529 24.7708 22.7239 25.346C21.4405 26 19.7603 26 16.4 26H15.6C12.2397 26 10.5595 26 9.27606 25.346C8.14708 24.7708 7.2292 23.8529 6.65396 22.7239C6 21.4405 6 19.7603 6 16.4V15.6ZM15.6 8H16.4C18.1132 8 19.2777 8.00156 20.1779 8.0751C21.0548 8.14674 21.5032 8.27659 21.816 8.43597C22.5686 8.81947 23.1805 9.43139 23.564 10.184C23.7234 10.4968 23.8533 10.9452 23.9249 11.8221C23.9984 12.7223 24 13.8868 24 15.6V16.4C24 18.1132 23.9984 19.2777 23.9249 20.1779C23.8533 21.0548 23.7234 21.5032 23.564 21.816C23.1805 22.5686 22.5686 23.1805 21.816 23.564C21.5032 23.7234 21.0548 23.8533 20.1779 23.9249C19.2777 23.9984 18.1132 24 16.4 24H15.6C13.8868 24 12.7223 23.9984 11.8221 23.9249C10.9452 23.8533 10.4968 23.7234 10.184 23.564C9.43139 23.1805 8.81947 22.5686 8.43597 21.816C8.27659 21.5032 8.14674 21.0548 8.0751 20.1779C8.00156 19.2777 8 18.1132 8 16.4V15.6C8 13.8868 8.00156 12.7223 8.0751 11.8221C8.14674 10.9452 8.27659 10.4968 8.43597 10.184C8.81947 9.43139 9.43139 8.81947 10.184 8.43597C10.4968 8.27659 10.9452 8.14674 11.8221 8.0751C12.7223 8.00156 13.8868 8 15.6 8Z"
+                                fill="white"></path>
+                            <defs>
+                                <radialGradient id="paint0_radial_87_7153" cx="0" cy="0" r="1"
+                                    gradientUnits="userSpaceOnUse"
+                                    gradientTransform="translate(12 23) rotate(-55.3758) scale(25.5196)">
+                                    <stop stop-color="#B13589"></stop>
+                                    <stop offset="0.79309" stop-color="#C62F94"></stop>
+                                    <stop offset="1" stop-color="#8A3AC8"></stop>
+                                </radialGradient>
+                                <radialGradient id="paint1_radial_87_7153" cx="0" cy="0" r="1"
+                                    gradientUnits="userSpaceOnUse"
+                                    gradientTransform="translate(11 31) rotate(-65.1363) scale(22.5942)">
+                                    <stop stop-color="#E0E8B7"></stop>
+                                    <stop offset="0.444662" stop-color="#FB8A2E"></stop>
+                                    <stop offset="0.71474" stop-color="#E2425C"></stop>
+                                    <stop offset="1" stop-color="#E2425C" stop-opacity="0"></stop>
+                                </radialGradient>
+                                <radialGradient id="paint2_radial_87_7153" cx="0" cy="0" r="1"
+                                    gradientUnits="userSpaceOnUse"
+                                    gradientTransform="translate(0.500002 3) rotate(-8.1301) scale(38.8909 8.31836)">
+                                    <stop offset="0.156701" stop-color="#406ADC"></stop>
+                                    <stop offset="0.467799" stop-color="#6A45BE"></stop>
+                                    <stop offset="1" stop-color="#6A45BE" stop-opacity="0"></stop>
+                                </radialGradient>
+                            </defs>
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <div>@suyash.a91</div>
+                    <div class="opacity-75">Instagram</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="d-flex bg-custom-shade p-3 rounded align-items-center gap-2"
+                (click)="openLink('https://medium.com/@yash.a91')">
+                <div>
+                    <svg width="40" height="40" viewBox="-4.08 -4.08 32.16 32.16" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0">
+                            <rect x="-4.08" y="-4.08" width="32.16" height="32.16" rx="4.824" fill="#ffffff"
+                                strokewidth="0"></rect>
+                        </g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path
+                                d="M13 12C13 15.3137 10.3137 18 7 18C3.68629 18 1 15.3137 1 12C1 8.68629 3.68629 6 7 6C10.3137 6 13 8.68629 13 12Z"
+                                fill="#0F0F0F"></path>
+                            <path
+                                d="M23 12C23 14.7614 22.5523 17 22 17C21.4477 17 21 14.7614 21 12C21 9.23858 21.4477 7 22 7C22.5523 7 23 9.23858 23 12Z"
+                                fill="#0F0F0F"></path>
+                            <path
+                                d="M17 18C18.6569 18 20 15.3137 20 12C20 8.68629 18.6569 6 17 6C15.3431 6 14 8.68629 14 12C14 15.3137 15.3431 18 17 18Z"
+                                fill="#0F0F0F"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <div>@yash.a91</div>
+                    <div class="opacity-75">Medium</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="d-flex bg-custom-shade p-3 rounded align-items-center gap-2"
+                (click)="openLink('https://stackoverflow.com/users/9807249/yash')">
+                <div>
+                    <svg width="40" height="40" viewBox="-79.04 -79.04 462.08 462.08" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        preserveAspectRatio="xMidYMid" fill="#ffffff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0">
+                            <rect x="-79.04" y="-79.04" width="462.08" height="462.08" rx="69.312" fill="#ffffff"
+                                strokewidth="0"></rect>
+                        </g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <g>
+                                <polygon fill="#BCBBBB"
+                                    points="216.329708 276.187929 216.329708 194.976776 243.28341 194.976776 243.28341 303.14163 0 303.14163 0 194.976776 26.9537015 194.976776 26.9537015 276.187929">
+                                </polygon>
+                                <path
+                                    d="M56.7077876,187.275718 L189.025959,214.929516 L194.626728,188.325863 L62.3085568,160.672065 L56.7077876,187.275718 L56.7077876,187.275718 Z M74.2101912,124.267065 L196.727016,181.324901 L207.928555,156.821536 L85.4117295,99.4136524 L74.2101912,124.267065 Z M108.164854,64.0587971 L212.129132,150.520671 L229.281487,129.867835 L125.31721,43.4059609 L108.164854,64.0587971 L108.164854,64.0587971 Z M175.374084,0 L153.671104,16.1022113 L234.18216,124.617114 L255.88514,108.514902 L175.374084,0 Z M53.9074031,248.884179 L189.025959,248.884179 L189.025959,221.930478 L53.9074031,221.930478 L53.9074031,248.884179 Z"
+                                    fill="#F48023"> </path>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <div>user:9807249</div>
+                    <div class="opacity-75">Stackoverflow</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div #educationTab style="min-height: 100px;">
+        @defer (on viewport(educationTab)) {
+        <div class="pt-5 d-flex gap-2 align-items-center justify-content-center">
+            <div>
+                <svg width="28" height="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                    fill="var(--font-icon-bg-colour)">
+                    <g stroke-width="0" />
+                    <g stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M17.673 5.606a3326 3326 0 0 1-5.671-2.674L.138 8.524l2.03.98L2 9.531V20h1v-9.626l.72-.124.28.135v5.288c0 .914 5.206 3.533 6.249 4.049a3.89 3.89 0 0 0 3.48-.026C20 16.486 20 15.895 20 15.673v-5.288l3.854-1.857s-3.8-1.801-6.181-2.922M19 15.504a52 52 0 0 1-5.726 3.302 2.88 2.88 0 0 1-2.582.02A40 40 0 0 1 5 15.521v-4.655l7 3.373 7-3.373zm-7-2.373L5.416 9.958l6.469-1.115-.17-.987-7.85 1.354-1.403-.676 9.537-4.495c.825.393 8.523 4.014 9.542 4.494z" />
+                    <path fill="none" d="M0 0h24v24H0z" />
+                </svg>
+            </div>
+            <div class="font-w-500">
+                Education
+            </div>
+        </div>
+
+
+        @for (org of college(); let i = $index; track i) {
+        <div class="mb-4 rounded border border-secondary border-opacity-25 mt-3">
+
+            <div
+                class="d-flex gap-1 justify-content-between align-items-center border-bottom border-opacity-25 border-secondary p-3 mb-3">
+                <div>
+                    <div class="font-w-500">
+                        {{org.org_name}}
+                    </div>
+                    <div class="text-small">
+                        <span class="allow-white-space">{{getExperience(org.joined_date,org.end_date)}}</span>
+                    </div>
+                </div>
+                <div class="rounded-2 d-flex bg-white shadow-sm align-items-center justify-content-center org-logos">
+                    <img [src]="org.logo_name" class="img-fluid p-1" alt="Company" loading="lazy" />
+                </div>
+            </div>
+
+
+            @for (role of org.roles; let j = $index; track j) {
+            <div class="my-3 px-3" [ngClass]="{'border-bottom border-secondary border-opacity-25':j<(org.roles.length-1)}">
+
+                <div class="font-w-500 mb-1">{{role.role_name}}</div>
+                <div class="text-small allow-white-space">{{getExperience(role.role_start,role.role_end)}}
+                </div>
+                @if(role.tag_line.length>0){
+                <div class="text-small my-3">
+                    {{role.tag_line}}
+                </div>
+                }
+
+                @for (proj of role.projects; let k = $index; track k) {
+
+                <div class="mb-4 position-relative text-small p-3 bg-custom-shade rounded">
+
+                    <div class="mb-2 font-w-500">
+                        {{proj.project_name}}
+                    </div>
+                    <div class="d-flex gap-2">
+                        @if(proj.show){
+                        <div>•</div>
+                        }
+                        <div>{{proj.project_content[0]}}</div>
+                    </div>
+
+                    <div class="collapse" [id]="'eduProjectContent'+i+j+k">
+                        @for (cont of proj.project_content; let l = $index; track l) {
+                        @if(l>0){
+                        <div class="mt-2 d-flex gap-2">
+                            <div>•</div>
+                            <div>{{cont}}</div>
+                        </div>
+                        }
+                        }
+
+                        @if(proj.project_name=='Generatives'){
+                        <app-linear-equilibrium />
+                        }
+
+                        @if(proj.video_link){
+                        <div class="mt-3 w-100 rounded-3 border py-2 px-3 d-flex justify-content-between align-items-center"
+                            (click)="openLink(proj.video_link)">
+                            <div>
+                                <div class="text-small font-w-500">{{proj.project_name}}</div>
+                                <div class="text-x-small opacity-75">www.youtube.com</div>
+                            </div>
+                            <div>
+                                <svg width="35" height="35" viewBox="-3.68 -3.68 23.36 23.36"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0">
+                                        <rect x="-3.68" y="-3.68" width="23.36" height="23.36" rx="11.68" fill="#ffffff"
+                                            strokewidth="0"></rect>
+                                    </g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                    </g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path fill="red"
+                                            d="M14.712 4.633a1.754 1.754 0 00-1.234-1.234C12.382 3.11 8 3.11 8 3.11s-4.382 0-5.478.289c-.6.161-1.072.634-1.234 1.234C1 5.728 1 8 1 8s0 2.283.288 3.367c.162.6.635 1.073 1.234 1.234C3.618 12.89 8 12.89 8 12.89s4.382 0 5.478-.289a1.754 1.754 0 001.234-1.234C15 10.272 15 8 15 8s0-2.272-.288-3.367z">
+                                        </path>
+                                        <path fill="#ffffff" d="M6.593 10.11l3.644-2.098-3.644-2.11v4.208z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+
+                    @if(proj.project_content.length>1){
+                    <span data-bs-toggle="collapse" name="expProject" aria-label="Click to expand project details"
+                        role="button" [attr.data-bs-target]="'#eduProjectContent'+i+j+k" aria-expanded="false"
+                        [attr.aria-controls]="'eduProjectContent'+i+j+k" (click)="proj.show=!proj.show"
+                        class="position-absolute translate-middle top-50 start-100">
+                        @if(proj.show){
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            transform="rotate(180)">
+                            <rect width="24" height="24" rx="12" fill="var(--expand-icon-colour)" />
+                            <g stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M5.707 9.71a1 1 0 0 0 0 1.415l4.892 4.887a2 2 0 0 0 2.828 0l4.89-4.89a1 1 0 1 0-1.414-1.415l-4.185 4.186a1 1 0 0 1-1.415 0L7.121 9.71a1 1 0 0 0-1.414 0"
+                                fill="#FFFF" />
+                        </svg>
+                        }
+                        @else{
+                        <svg width="17" height="17" viewBox="0 0 24.00 24.00" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0">
+                                <rect x="0" y="0" width="24.00" height="24.00" rx="12" fill="var(--expand-icon-colour)"
+                                    strokewidth="0">
+                                </rect>
+                            </g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M6 12H18M12 6V18" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+                        }
+                    </span>
+                    }
+
+                </div>
+
+                }
+            </div>
+            }
+        </div>
+        }
+
+        }
+    </div>
+
+</div>
+
+<footer class="border-top p-3 text-center">
+    <div class="text-small d-flex align-items-center justify-content-center">
+        <span>Made with</span>
+        <span class="text-nowrap">&nbsp;<svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path
+                        d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
+                        fill="#ff0000"></path>
+                </g>
+            </svg>&nbsp; </span>
+        <span>by help of ChatGPT Gemini Claude</span>
+    </div>
+    <div class="mt-2 opacity-75 text-x-small">Special Thanks to SVGRepo, Angular v20, Unicode, Bloomberg, Google,
+        Firebase, Gnews, Space Flight News, The Guardian, Netlify</div>
+</footer>

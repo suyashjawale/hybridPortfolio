@@ -1,0 +1,115 @@
+<div class="border-bottom border-secondary border-opacity-25 navbar-background fixed-top" #navDiv>
+    <div class="position-relative py-2 ps-2 ms-1">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex gap-2 align-items-center">
+                <img class="rounded-circle" src="images/suyash.webp" width="44" height="44" alt="Banner Photo"
+                    loading="lazy" />
+                <div class="d-flex flex-column">
+                    <div class="font-w-500">
+                        Suyash Jawale
+                    </div>
+                    <div class="d-flex align-items-center fade-in">
+                        @if(musicPlayer.songs().length>0){
+                        <div class="boxContainer d-flex justify-content-between me-2">
+                            <div class="box"
+                                [ngClass]="{'box1': musicPlayer.canPlayAudio() && musicPlayer.currentSong().playingSong}">
+                            </div>
+                            <div class="box"
+                                [ngClass]="{'box2': musicPlayer.canPlayAudio() && musicPlayer.currentSong().playingSong}">
+                            </div>
+                            <div class="box"
+                                [ngClass]="{'box3': musicPlayer.canPlayAudio() && musicPlayer.currentSong().playingSong}">
+                            </div>
+                            <div class="box"
+                                [ngClass]="{'box4': musicPlayer.canPlayAudio() && musicPlayer.currentSong().playingSong}">
+                            </div>
+                            <div class="box"
+                                [ngClass]="{'box5': musicPlayer.canPlayAudio() && musicPlayer.currentSong().playingSong}">
+                            </div>
+                        </div>
+                        <div class="text-small song-name">
+                            {{musicPlayer.currentSong().songName}}
+                        </div>
+                        }
+                        @else{
+                        <span class="text-small fade-in">Aper</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <!-- @if(this.router.url!='/' && ['/blogs', '/collection', '/projects', '/snippets', '/posts',
+				'/playlist'].includes(this.router.url)){
+				<button type="button" aria-controls="search" name="search" aria-label="Search"
+					class="btn btn-transparent border-0 pe-0 shadow-none" routerLink="/search"
+					(click)="stateService.searchTab.set(router.url)">
+					<svg width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+						<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+						<g id="SVGRepo_iconCarrier">
+							<path
+								d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
+								stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+						</g>
+					</svg>
+				</button>
+				} -->
+                <button class="btn shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu"
+                    aria-controls="menu" name="menu" aria-label="Open Sidebar Menu for other page links">
+                    <svg fill="var(--font-icon-bg-colour)" width="24" height="24" viewBox="0 0 64 64" data-name="Layer 1"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g stroke-width="0" />
+                        <g stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M21.86 18.73H9.18a2 2 0 0 1 0-4h12.68a2 2 0 0 1 0 4m32.96 0H34.88a2 2 0 0 1 0-4h19.94a2 2 0 0 1 0 4m0 15.27H9.18a2 2 0 0 1 0-4h45.64a2 2 0 0 1 0 4m0 15.27H30.07a2 2 0 0 1 0-4h24.75a2 2 0 0 1 0 4" />
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+
+        @if(stateService.dialogueContent()!='' && this.router.url.includes('captures')){
+            <div class="position-absolute top-100 envelope font-w-500 text-x-small px-4 py-1 end-0 me-3">
+                {{stateService.dialogueContent()}}
+            </div>
+        }
+
+        @if(this.router.url!='/' && ['/blogs', '/captures', '/projects', '/snippets', '/posts',
+        '/music','/updates','/wisdom','/resume'].includes(this.router.url)){
+
+        <div class="position-absolute top-100 envelope font-w-500 text-x-small px-4 py-1"
+            style="clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%);">
+            @if(this.router.url.includes('blogs')){
+            &nbsp;&nbsp;Blogs&nbsp;&nbsp;
+            }
+            @else if(this.router.url.includes('captures')){
+            Captures
+            }
+            @else if(this.router.url.includes('projects')){
+            Projects
+            }
+            @else if(this.router.url.includes('snippets')){
+            Snippets
+            }
+            @else if(this.router.url.includes('posts')){
+            &nbsp;&nbsp;Posts&nbsp;&nbsp;
+            }
+            @else if(this.router.url.includes('music')){
+            Music
+            }
+            @else if(this.router.url.includes('updates')){
+            Updates
+            }
+            @else if(this.router.url.includes('wisdom')){
+            Wisdom
+            }
+            @else if(this.router.url.includes('resume')){
+            Resume
+            }
+        </div>
+
+        }
+    </div>
+
+</div>

@@ -1,0 +1,75 @@
+<div class="position-relative" [ngClass]="{'dvh-100 overflow-hidden':loadingData()!='loaded'}">
+
+    <div class="d-flex flex-column justify-content-center align-items-center position-absolute bg-custom z-2 w-100"
+        style="transition: height 0.3s" [ngStyle]="{'height': loadingData()=='loaded'? '0dvh' : '100dvh' }">
+        @if(loadingData()=='failed'){
+        <div>No Posts Yet</div>
+        <div class="text-x-small opacity-75">Stay tuned</div>
+        }
+        @else if(loadingData()=='loading'){
+        <div class="loader" [ngStyle]="{'--loaderColor':'#fff'}"></div>
+        }
+        @else if(loadingData()=='validation'){
+        <div class="border border-secondary rounded border-opacity-50">
+            <input type="text" class="text-center border-0 bg-transparent shadow-none px-3 py-2" style="outline: none;"
+                [(ngModel)]="numberField" placeholder="Access Code" maxlength="10" (input)="validateUser()" />
+        </div>
+        }
+        @else if(loadingData()=='Access Restricted'){
+        <img src="artifact/no-nooo-circle.gif" class="img-fluid w-25" />
+        <div class="py-3">Access Restricted</div>
+        }
+    </div>
+
+    <div [ngStyle]="{'margin-top': stateService.navHeight()+38+'px'}" class="container-xxl">
+        @for (post of posts(); let i = $index; track i) {
+        <div class="mb-3">
+            @if(post.imageUrl!=""){
+            <div class="position-relative">
+                <div class="position-absolute z-1 d-flex justify-content-between w-100 align-items-center">
+                    @if(post.location!=''){
+                    <div class="text-x-small font-w-500 blur-background rounded px-2 py-1 m-2">
+                        {{post.location}}
+                    </div>
+                    }
+                    @if(post.isCollection){
+                    <button class="btn border-0 shadow-none p-2" (click)="openCollectionItem(post.identifier)">
+                        <svg fill="#fff" width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                            stroke="#fff" stroke-width="0">
+                            <g />
+                            <g stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M3 20V10h5v11H4a1 1 0 0 1-1-1M21 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4h18Zm-1 17a1 1 0 0 0 1-1V10H10v11Z"
+                                stroke="none" />
+                        </svg>
+                    </button>
+                    }
+                </div>
+                <div class="ratio bg-white rounded-top-4 text-dark" [style]="'aspect-ratio:'+ post.width/post.height">
+                    <div class="d-flex align-items-center">
+                        <div class="loader mx-auto" [ngStyle]="{'--loaderColor':'#000'}"></div>
+                    </div>
+                    <img [src]="post.imageUrl" class="img-fluid rounded-top-4 z-0 glideUp" loading="lazy"
+                        [ngStyle]="post.imgClip" #img (load)="applyClip(img, post, 'img', i)" />
+                </div>
+
+                <div class="bg-white position-absolute top-50 h-50 w-100 z-n1">a</div>
+            </div>
+            }
+
+            <div class="bg-white text-dark px-3" [ngClass]="{'pt-4 rounded-top-4':post.imageUrl==''}" #contentDiv
+                [ngStyle]="post.divClip" style="margin-top: -2px;">
+                <div class="font-w-500">
+                    {{post.title}}
+                </div>
+                <div class="text-small pt-2" style="white-space: pre-wrap;">{{post.postBody}}</div>
+                <div class="text-x-small text-end pt-2 opacity-75" style="padding-bottom: 2.8rem;">
+                    {{ post.timestamp | date: 'MMMM d, yyyy h:mm:ss a'}}
+                </div>
+            </div>
+
+        </div>
+        }
+    </div>
+
+</div>

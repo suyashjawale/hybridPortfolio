@@ -1,1 +1,287 @@
-/* You can add global styles to this file, and also import other style files */
+@use '../node_modules/bootstrap/scss/bootstrap' as *;
+@use '@fontsource/poppins/100.css' as poppins100;
+@use '@fontsource/poppins/400.css' as poppins400;
+@use '@fontsource/poppins/500.css' as poppins500;
+
+$form-range-thumb-width: 0.7rem;
+$form-range-track-height: 0.15rem;
+$form-range-thumb-bg: white;
+$form-range-track-bg: rgb(226, 226, 226);
+
+
+body {
+    --bg-custom-colour: #111922;
+    --bg-custom-shade-colour: #1d2d3d;
+    --bg-custom-selected-colour: #2f455e;
+    --font-icon-bg-colour: white;
+    --font-icon-bg-accent-colour: #edecf1;
+    --expand-icon-colour: #00c230;
+    --navbar-rgba: rgb(17, 25, 34, 0.7);
+    --intro-text : linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+
+    font-family: 'Poppins', sans-serif !important;
+    background-color: var(--bg-custom-colour) !important;
+    color: var(--font-icon-bg-colour) !important;
+    font-size: 0.87rem !important;
+    font-weight: 400 !important;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+
+    user-select: none;
+}
+
+.currentRole{
+    background-color: var(--font-icon-bg-colour) !important;
+}
+
+/* Light theme override */
+body.light-theme {
+    --bg-custom-colour: #ffffff;
+    --bg-custom-shade-colour: #ECEEF2;
+    --bg-custom-selected-colour: #D8DBE2;
+    --font-icon-bg-colour: #111922;
+    --font-icon-bg-accent-colour: #1e3247;
+    --expand-icon-colour: #111922;
+    --navbar-rgba: rgb(255, 255, 255);
+    --intro-text : linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
+}
+
+.border-10{
+    border : 1px solid rgba(108, 117, 125, 0.20) !important;
+}
+
+.bg-dark-edition{
+    background-color: #111922 !important;
+}
+
+.bg-white-shade{
+    background-color: #ECEEF2 !important;
+}
+
+.text-custom{
+    color: var(--font-icon-bg-colour) !important;
+}
+
+.envelope {
+    background-color: var(--font-icon-bg-colour) !important;
+    color: var(--bg-custom-colour) !important; 
+}
+
+.bg-custom {
+    background-color: var(--bg-custom-colour) !important;
+}
+
+.bg-custom-shade {
+    background-color: var(--bg-custom-shade-colour) !important;
+}
+
+.bg-custom-selected {
+    background-color: var(--bg-custom-selected-colour) !important;
+}
+
+.text-small {
+    font-size: 0.77rem !important;
+}
+
+.text-x-small {
+    font-size: 0.67rem !important;
+}
+
+.text-xx-small {
+    font-size: 0.50rem !important;
+}
+
+.font-w-100 {
+    font-weight: 100 !important;
+}
+
+.font-w-500 {
+    font-weight: 500 !important;
+}
+
+
+.glideUp {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.reveal {
+    animation: reveal 0.56s ease-out forwards;
+}
+
+@keyframes reveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+:host {
+    contain: content;
+}
+
+img {
+    content-visibility: auto;
+}
+
+.hidden-background {
+    visibility: hidden;
+}
+
+.dvh-100 {
+    height: 100dvh;
+}
+
+.loader {
+    width: 22px;
+    aspect-ratio: 2;
+    --_g: no-repeat radial-gradient(circle closest-side, var(--loaderColor) 90%, #0000);
+    background:
+        var(--_g) 0% 50%,
+        var(--_g) 50% 50%,
+        var(--_g) 100% 50%;
+    background-size: calc(100%/3) 50%;
+    animation: l3 1s infinite linear;
+}
+
+@keyframes l3 {
+    20% {
+        background-position: 0% 0%, 50% 50%, 100% 50%
+    }
+
+    40% {
+        background-position: 0% 100%, 50% 0%, 100% 50%
+    }
+
+    60% {
+        background-position: 0% 50%, 50% 100%, 100% 0%
+    }
+
+    80% {
+        background-position: 0% 50%, 50% 50%, 100% 100%
+    }
+}
+
+.blur-background {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translate3d(0, 0, 0);
+}
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* Displays up to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.outline-none {
+    outline: none !important;
+}
+
+@keyframes quiet {
+  25% {
+    transform: scaleY(.6);
+  }
+
+  50% {
+    transform: scaleY(.4);
+  }
+
+  75% {
+    transform: scaleY(.8);
+  }
+}
+
+@keyframes normal {
+  25% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(.4);
+  }
+
+  75% {
+    transform: scaleY(.6);
+  }
+}
+
+@keyframes loud {
+  25% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(.4);
+  }
+
+  75% {
+    transform: scaleY(1.2);
+  }
+}
+
+.boxContainer {
+  margin-left: 2px;
+  height: 14px;
+  --boxSize: 2px;
+  --gutter: 3px;
+  width: calc((var(--boxSize) + var(--gutter)) * 5);
+}
+
+.box {
+  transform: scaleY(.4);
+  height: 100%;
+  width: var(--boxSize);
+  background: var(--font-icon-bg-colour);
+  animation-duration: 1.2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  border-radius: 8px;
+}
+
+.box1 {
+  animation-name: quiet;
+}
+
+.box2 {
+  animation-name: normal;
+}
+
+.box3 {
+  animation-name: quiet;
+}
+
+.box4 {
+  animation-name: loud;
+}
+
+.box5 {
+  animation-name: quiet;
+}
+
+// .allow-select-none {
+//     -webkit-user-select: none;
+//     -khtml-user-select: none;
+//     -moz-user-select: none;
+//     -ms-user-select: none;
+//     -o-user-select: none;
+//     user-select: none;
+// }
+
+// .allow-select-allow {
+//     -webkit-user-select: all;
+//     -khtml-user-select: all;
+//     -moz-user-select: all;
+//     -ms-user-select: all;
+//     -o-user-select: all;
+//     user-select: all;
+// }/* You can add global styles to this file, and also import other style files */

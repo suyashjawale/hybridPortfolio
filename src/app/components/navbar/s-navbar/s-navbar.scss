@@ -1,0 +1,35 @@
+@use '@fontsource/poppins/500.css' as *;
+
+.avatar-name {
+  font-weight: 500;
+}
+
+.navbar-background {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: var(--navbar-rgba);
+  transform: translate3d(0, 0, 0);
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-in forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.song-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /* Displays up to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
