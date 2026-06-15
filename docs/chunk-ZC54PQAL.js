@@ -1,0 +1,1 @@
+import{$a as m,Da as n,_a as s,ob as o}from"./chunk-SYBDMIXP.js";var a=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-resume"]],decls:2,vars:0,template:function(e,i){e&1&&(s(0,"p"),o(1,"resume works!"),m())},encapsulation:2})};export{a as Resume};
