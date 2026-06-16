@@ -1,0 +1,53 @@
+<div class="terminal">
+
+    <!-- Title bar -->
+    <div class="title-bar">
+        <div class="dots">
+            <span class="dot dot-r"></span>
+            <span class="dot dot-y"></span>
+            <span class="dot dot-g"></span>
+        </div>
+        <div class="title-text d-flex justify-content-between w-100">
+            <div>life.c</div>
+            <div>Made by Claude</div>
+        </div>
+    </div>
+
+    <!-- Code area -->
+    <div class="code-area">
+        @for (line of lines; track line.lineNum) {
+        <div class="line" [class.active]="isActive(line)">
+            <span class="arrow">▶</span>
+            <span class="line-num">{{ line.lineNum }}</span>
+            <span class="code" [innerHTML]="line.html"></span>
+            @if (line.tooltip && isActive(line)) {
+            <span class="tooltip">{{ line.tooltip }}</span>
+            }
+        </div>
+        }
+    </div>
+
+    <!-- Watch panel -->
+    <div class="watch-panel">
+        <p class="watch-title">watch expressions</p>
+        <div class="watch-vars">
+            <span class="watch-var">
+                <span class="w-name">canExitLoop</span>
+                <span class="w-eq"> = </span>
+                <span class="w-val false">false</span>
+            </span>
+            <span class="watch-var">
+                <span class="w-name">iteration</span>
+                <span class="w-eq"> = </span>
+                <span class="w-val">{{ iteration() }}</span>
+            </span>
+            <span class="watch-var">
+                <span class="w-name">exit_condition</span>
+                <span class="w-eq"> = </span>
+                <span class="w-val unknown">???</span>
+            </span>
+        </div>
+    </div>
+
+
+</div>

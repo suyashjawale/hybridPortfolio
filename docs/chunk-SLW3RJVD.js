@@ -1,1 +1,0 @@
-import{$a as s,Da as a,_a as n,ob as i}from"./chunk-SYBDMIXP.js";var m=class e{static \u0275fac=function(t){return new(t||e)};static \u0275cmp=a({type:e,selectors:[["app-instagram-cli"]],decls:2,vars:0,template:function(t,r){t&1&&(n(0,"p"),i(1,"instagram-cli works!"),s())},encapsulation:2})};export{m as InstagramCLI};

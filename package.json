@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --port 4200",
-    "build": "ng build --configuration=production --base-href /",
+    "build": "ng build --configuration=production --base-href /hybridPortfolio/",
     "createProject": "node scripts/createProject.js",
     "createBlog": "node scripts/createBlog.js",
     "watch": "ng build --watch --configuration development",

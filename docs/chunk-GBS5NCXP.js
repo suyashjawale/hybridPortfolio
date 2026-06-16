@@ -1,0 +1,1 @@
+import{$a as n,Ea as o,ab as s,qb as i}from"./chunk-DJ5OEKZG.js";var m=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-wisdom"]],decls:2,vars:0,template:function(e,p){e&1&&(n(0,"p"),i(1,"wisdom works!"),s())},encapsulation:2})};export{m as Wisdom};

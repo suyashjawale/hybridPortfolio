@@ -1,0 +1,301 @@
+@use 'sass:color';
+
+// ─── Tokens ────────────────────────────────────────────────────────────────
+$bg-deep: #0d1117;
+$bg-surface: #161b22;
+$bg-active: rgba(56, 139, 253, 0.10);
+$border: #30363d;
+
+$fg-muted: #8b949e;
+$fg-dim: #3d444d;
+$fg-base: #e6edf3;
+
+$c-blue: #79c0ff;
+$c-purple: #d2a8ff;
+$c-red: #ff7b72;
+$c-orange: #ffa657;
+$c-green: #28c840;
+$c-string: #a5d6ff;
+$c-arrow: #f78166;
+$c-comment: #3d444d;
+
+$font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+
+// ─── Terminal shell ────────────────────────────────────────────────────────
+.terminal {
+    background: $bg-deep;
+    border: 1px solid $border;
+    border-radius: 12px;
+    font-family: $font-mono;
+    display: block;
+    width: 100%;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+}
+
+
+// ─── Title bar ─────────────────────────────────────────────────────────────
+.title-bar {
+    background: $bg-surface;
+    border-bottom: 1px solid $border;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dots {
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+
+    &.dot-r {
+        background: #ff5f57;
+    }
+
+    &.dot-y {
+        background: #ffbd2e;
+    }
+
+    &.dot-g {
+        background: #28c840;
+    }
+}
+
+.title-text {
+    font-size: 12px;
+    color: $fg-muted;
+    letter-spacing: 0.4px;
+}
+
+// ─── Code area ─────────────────────────────────────────────────────────────
+.code-area {
+    padding: 16px 0;
+}
+
+.line {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 2px 0;
+    position: relative;
+    min-height: 26px;
+    transition: background 0.12s ease;
+
+    &.active {
+        background: $bg-active;
+
+        .arrow {
+            opacity: 1;
+        }
+
+        .line-num {
+            color: $c-blue;
+        }
+
+        .tooltip {
+            opacity: 1;
+        }
+    }
+}
+
+.arrow {
+    position: absolute;
+    left: 10px;
+    color: $c-arrow;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.1s;
+    line-height: 1;
+}
+
+.line-num {
+    color: $fg-dim;
+    font-size: 13px;
+    min-width: 48px;
+    text-align: right;
+    padding-right: 20px;
+    flex-shrink: 0;
+    user-select: none;
+    transition: color 0.12s;
+}
+
+.code {
+    font-size: 13px;
+    line-height: 1.7;
+    color: $fg-base;
+    flex: 1;
+
+    // Syntax token colours — used via [innerHTML]
+    :global(.kw) {
+        color: $c-red;
+    }
+
+    :global(.type) {
+        color: $c-blue;
+    }
+
+    :global(.fn) {
+        color: $c-purple;
+    }
+
+    :global(.call) {
+        color: $c-orange;
+    }
+
+    :global(.str) {
+        color: $c-string;
+    }
+
+    :global(.op) {
+        color: $c-red;
+    }
+
+    :global(.cmt) {
+        color: $c-comment;
+        font-style: italic;
+    }
+
+    :global(.punc) {
+        color: $fg-base;
+    }
+
+    :global(.plain) {
+        color: $fg-base;
+    }
+
+    :global(.var) {
+        color: $fg-base;
+    }
+}
+
+.tooltip {
+    position: absolute;
+    right: 16px;
+    background: $bg-surface;
+    border: 1px solid $border;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: $fg-muted;
+    opacity: 0;
+    transition: opacity 0.25s;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+// ─── Watch panel ───────────────────────────────────────────────────────────
+.watch-panel {
+    border-top: 1px solid $border;
+    padding: 12px 20px;
+}
+
+.watch-title {
+    font-size: 10px;
+    color: $fg-dim;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+}
+
+.watch-vars {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.watch-var {
+    font-size: 12px;
+}
+
+.w-name {
+    color: $c-blue;
+}
+
+.w-eq {
+    color: $fg-muted;
+}
+
+.w-val {
+    color: $c-orange;
+
+    &.false {
+        color: $c-red;
+    }
+
+    &.unknown {
+        color: $fg-muted;
+    }
+}
+
+// ─── Status bar ────────────────────────────────────────────────────────────
+.status-bar {
+    background: $bg-surface;
+    border-top: 1px solid $border;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: $fg-muted;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $c-green;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+}
+
+.step-badge {
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: $c-orange;
+    font-family: $font-mono;
+    transition: color 0.2s;
+}
+
+// ─── Responsive ────────────────────────────────────────────────────────────
+@media (max-width: 520px) {
+    .watch-vars {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .status-bar {
+        gap: 12px;
+    }
+
+    .tooltip {
+        display: none;
+    }
+}

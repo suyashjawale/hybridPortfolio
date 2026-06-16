@@ -1,0 +1,1 @@
+import{$a as o,Ea as t,ab as i,qb as s}from"./chunk-DJ5OEKZG.js";var c=class n{static \u0275fac=function(e){return new(e||n)};static \u0275cmp=t({type:n,selectors:[["app-video-sync"]],decls:2,vars:0,template:function(e,p){e&1&&(o(0,"p"),s(1,"video-sync works!"),i())},encapsulation:2})};export{c as VideoSync};

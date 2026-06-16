@@ -7,10 +7,11 @@ import { NgClass, NgStyle } from '@angular/common';
 import { MusicPopup } from "../../music-popup/music-popup";
 import { StateService } from '../../../services/state-service';
 import { MusicPlayer } from '../../../services/music-player';
+import { LifeStatus } from "../../life-status/life-status";
 
 @Component({
 	selector: 'app-l-home',
-	imports: [LinearEquilibrium, MusicPopup, NgStyle, NgClass],
+	imports: [LinearEquilibrium, MusicPopup, NgStyle, NgClass, LifeStatus],
 	templateUrl: './l-home.html',
 	styleUrl: './l-home.scss',
 })

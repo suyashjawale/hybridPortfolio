@@ -44,7 +44,7 @@
             <div class="meter w-100 rounded">
                 <div class="meter-fill" [style.--target-w]="progressPct() + '%'"></div>
             </div>
-            <div class="text-x-small">{{ progressPct().toFixed(3) }}&nbsp;%</div>
+            <div class="text-x-small">{{ progressPct().toFixed(2) }}&nbsp;%</div>
         </div>
     </div>
 
@@ -236,7 +236,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-3 col-6 ps-0 my-3">
+            <div class="col-3 ps-0 my-3">
                 <div class="d-flex bg-custom-shade p-3 rounded align-items-center gap-2 mb-2 pointer"
                     (click)="openLink('https://github.com/suyashjawale')">
                     <div>
@@ -387,22 +387,8 @@
                 </div>
             </div>
 
-            <div class="col-lg-5 col-6">
-                @for(highlight in highlights; track $index){
-                    <div class="d-flex gap-2 align-items-center text-custom">
-                        @if(.hasImage){
-                        <img class="img-fluid rounded" [src]="stateService.sortedHighLights()[currentHighlight()].imageLink"
-                            style="max-height: 3rem; min-height: 3rem;"
-                            (error)="stateService.sortedHighLights()[currentHighlight()].imageLink = '/artifact/placeholder.svg'"
-                            loading="lazy" />
-                        }
-                        <div class="text-clamp-2 text-small">{{stateService.sortedHighLights()[currentHighlight()].content}}</div>
-                    </div>
-                }
-            </div>
-
-            <div class="col-lg-4 col-6">
-
+            <div class="col-9 my-3">
+                <app-life-status/>
             </div>
         </div>
 

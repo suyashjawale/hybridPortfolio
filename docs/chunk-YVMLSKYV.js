@@ -1,1 +1,0 @@
-import{$a as o,Da as a,_a as n,ob as r}from"./chunk-SYBDMIXP.js";var s=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=a({type:t,selectors:[["app-read"]],decls:2,vars:0,template:function(e,m){e&1&&(n(0,"p"),r(1,"read works!"),o())},encapsulation:2})};export{s as Read};

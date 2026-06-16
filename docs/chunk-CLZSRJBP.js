@@ -1,1 +1,0 @@
-import{$a as c,Da as l,_a as t,ob as o}from"./chunk-SYBDMIXP.js";var n=class i{static \u0275fac=function(e){return new(e||i)};static \u0275cmp=l({type:i,selectors:[["app-lifecycle-of-milk"]],decls:2,vars:0,template:function(e,m){e&1&&(t(0,"p"),o(1,"lifecycle-of-milk works!"),c())},encapsulation:2})};export{n as LifecycleOfMilk};
