@@ -30,7 +30,6 @@ $font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
     font-family: $font-mono;
     display: block;
     width: 100%;
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
 }
 
 
@@ -38,6 +37,8 @@ $font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 .title-bar {
     background: $bg-surface;
     border-bottom: 1px solid $border;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
     padding: 10px 16px;
     display: flex;
     align-items: center;

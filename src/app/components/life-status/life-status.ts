@@ -34,6 +34,7 @@ export class LifeStatus implements OnInit, OnDestroy {
 		{ lineNum: 10, html: `<span class="kw">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if</span><span class="punc">(</span><span class="var">canExitLoop</span><span class="punc">)</span>`, stepId: 5, tooltip: 'evaluating... false ✗' },
 		{ lineNum: 11, html: `<span class="kw">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break</span><span class="punc">;</span>`, stepId: 6, tooltip: 'unreachable' },
 		{ lineNum: 12, html: `<span class="punc">&nbsp;&nbsp;&nbsp;}</span>`, stepId: 0 },
+		{ lineNum: 12, html: `<span class="punc">&nbsp;&nbsp;&nbsp;somethingNew();</span>`, stepId: 0 },
 		{ lineNum: 13, html: `<span class="punc">}</span>`, stepId: 0 },
 	];
 
