@@ -1,1 +1,0 @@
-import{$a as p,Ea as n,ab as s,qb as i}from"./chunk-DJ5OEKZG.js";var o=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-snippets"]],decls:2,vars:0,template:function(e,m){e&1&&(p(0,"p"),i(1,"snippets works!"),s())},encapsulation:2})};export{o as Snippets};

@@ -1,0 +1,1 @@
+import{Ga as a,db as n,eb as s,ub as p}from"./chunk-OJVEQOUB.js";var o=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=a({type:t,selectors:[["app-updates"]],decls:2,vars:0,template:function(e,m){e&1&&(n(0,"p"),p(1,"updates works!"),s())},encapsulation:2})};export{o as Updates};

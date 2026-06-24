@@ -1,0 +1,1 @@
+import{Ga as n,db as s,eb as i,ub as o}from"./chunk-OJVEQOUB.js";var c=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-music"]],decls:2,vars:0,template:function(e,m){e&1&&(s(0,"p"),o(1,"Music works!"),i())},encapsulation:2})};export{c as Music};

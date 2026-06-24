@@ -30,98 +30,6 @@ export class Sidebar {
 
 	ngOnInit() {
 		this.isOpen.set(true);
-
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			'X-Site-Identity': 'portfolio-admin-v1'
-		});
-
-		this.http.post<any>(environment.domain + '.netlify/functions/getBirthdays', { "password": "" }, { headers }).subscribe({
-			next: (data: any) => {
-				this.stateService.highLights.update((item) => [...item, ...data.map((item: any) => ({
-					uid: '',
-					isBirthdayHighlight: true,
-					content: `🥳🎉 ${item.message}`,
-					imageLink: '',
-					bigBanner: '',
-					description: '',
-					hasImage: false,
-					link: '',
-					publishedTime: '',
-					source: '',
-					rank: 1
-				}))]);
-			}
-		});
-
-
-		this.http.post(environment.domain + '.netlify/functions/getRssNews', { "url": "https://www.theguardian.com/uk/technology/rss" }, { responseType: 'text', headers })
-			.subscribe({
-				next: xml => {
-					const parser = new DOMParser();
-					const xmlDoc = parser.parseFromString(xml.toString(), 'text/xml');
-					const items = Array.from(xmlDoc.querySelectorAll('item'));
-
-					this.stateService.highLights.update((item) => [...item, ...items.slice(0, 10).map((rss: any) => ({
-						uid: '',
-						isBirthdayHighlight: false,
-						content: rss.querySelector('title')?.textContent,
-						hasImage: true,
-						description: rss.querySelector('description')?.textContent,
-						imageLink: rss.getElementsByTagName('media:content')[0].getAttribute("url"),
-						bigBanner: rss.getElementsByTagName('media:content')[2].getAttribute("url"),
-						publishedTime: rss.querySelector('pubDate')?.textContent,
-						source: 'www.theguardian.com',
-						link: rss.querySelector('link')?.textContent,
-						rank: 2,
-						w: 0
-					}))])
-				}
-			});
-
-		this.http.post(environment.domain + '.netlify/functions/getRssNews', { "url": "https://news.google.com/rss/search?q=technology&hl=en-IN&gl=IN&ceid=IN:en" }, { responseType: 'text', headers })
-			.subscribe({
-				next: xml => {
-					const parser = new DOMParser();
-					const xmlDoc = parser.parseFromString(xml.toString(), 'text/xml');
-					const items = Array.from(xmlDoc.querySelectorAll('item'));
-
-					this.stateService.highLights.update((item) => [...item, ...items.slice(0, 5).map((rss: any) => ({
-						uid: '',
-						isBirthdayHighlight: false,
-						content: rss.querySelector('title')?.textContent,
-						description: rss.querySelector('description')?.textContent,
-						hasImage: true,
-						imageLink: '/artifact/google.svg',
-						bigBanner: '',
-						publishedTime: rss.querySelector('pubDate')?.textContent,
-						source: 'news.google.com',
-						link: rss.querySelector('link')?.textContent,
-						rank: 3,
-						w: 0
-					}))])
-				}
-			});
-
-
-		this.http.get<any>('https://api.spaceflightnewsapi.net/v4/articles/?limit=5').subscribe({
-			next: data => {
-				this.stateService.highLights.update((item) => [...item, ...data.results.map((item: any) => ({
-					uid: item.id,
-					isBirthdayHighlight: false,
-					content: item.title,
-					hasImage: true,
-					bigBanner: item.image_url,
-					publishedTime: item.updated_at,
-					source: 'api.spaceflightnewsapi.net',
-					description: item.summary,
-					imageLink: item.image_url,
-					link: item.url,
-					rank: 4,
-				}))])
-			}
-		});
-
 	}
 
 	decodeHtml(html: string): string {
@@ -129,8 +37,6 @@ export class Sidebar {
 		txt.innerHTML = html;
 		return txt.value;
 	}
-
-
 
 	toggleFullScreen() {
 		const element: any = document.documentElement;

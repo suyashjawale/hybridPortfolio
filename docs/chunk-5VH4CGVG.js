@@ -1,0 +1,1 @@
+import{Ga as o,db as n,eb as m,ub as a}from"./chunk-OJVEQOUB.js";var s=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-modelx"]],decls:2,vars:0,template:function(e,i){e&1&&(n(0,"p"),a(1,"modelx works!"),m())},encapsulation:2})};export{s as Modelx};

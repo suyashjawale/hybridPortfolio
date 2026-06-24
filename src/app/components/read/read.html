@@ -1,1 +1,83 @@
-<p>read works!</p>
+@for (post of posts(); track post.id) {
+
+<div class="card">
+
+    <h3>{{ post.title }}</h3>
+
+    <p>{{ post.description }}</p>
+
+    <small>
+        {{ post.createdUtc * 1000 | date:'medium' }}
+    </small>
+
+    <div>
+        👍 {{ post.upvotes }}
+    </div>
+
+    <!-- Image -->
+    @if (post.contentType === 'image') {
+
+    <img [src]="post.image" class="img-fluid">
+
+    }
+
+    <!-- Gallery -->
+    @if (post.contentType === 'gallery') {
+
+    <!-- <swiper-container> -->
+
+    @for (img of post.gallery; track img) {
+
+    <!-- <swiper-slide> -->
+    <img [src]="img">
+    <!-- </swiper-slide> -->
+
+    }
+
+    <!-- </swiper-container> -->
+
+    }
+
+    <!-- Reddit Video -->
+    @if (post.contentType === 'video') {
+
+    <video controls [src]="post.video">
+    </video>
+
+    }
+
+    <!-- Youtube -->
+    @if (post.contentType === 'youtube') {
+
+    <iframe [src]="post.youtube!.embedUrl">
+    </iframe>
+
+    }
+
+    <!-- Link Preview -->
+    @if (post.contentType === 'link') {
+
+    <a [href]="post.link!.url" target="_blank">
+
+        <img *ngIf="post.link!.image" [src]="post.link!.image">
+
+        <div>
+            {{ post.link!.domain }}
+        </div>
+
+    </a>
+
+    }
+
+    <!-- Crosspost -->
+    @if (post.contentType === 'crosspost') {
+
+    <!-- <app-reddit-post
+      [post]="mapPost(post.crosspost)">
+    </app-reddit-post> -->
+
+    }
+
+</div>
+
+}

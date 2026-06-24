@@ -3,7 +3,7 @@ import { LinearEquilibrium } from "../../linear-equilibrium/linear-equilibrium";
 import { experience_data } from '../../../data/experience_data';
 import { college_data } from '../../../data/education_data';
 import { organization } from '../../../interfaces/organization';
-import { NgClass, NgStyle } from '@angular/common';
+import { DatePipe, NgClass, NgStyle } from '@angular/common';
 import { MusicPopup } from "../../music-popup/music-popup";
 import { StateService } from '../../../services/state-service';
 import { MusicPlayer } from '../../../services/music-player';
@@ -11,7 +11,7 @@ import { LifeStatus } from "../../life-status/life-status";
 
 @Component({
 	selector: 'app-l-home',
-	imports: [LinearEquilibrium, MusicPopup, NgStyle, NgClass, LifeStatus],
+	imports: [LinearEquilibrium, MusicPopup, NgStyle, NgClass, LifeStatus, DatePipe],
 	templateUrl: './l-home.html',
 	styleUrl: './l-home.scss',
 })
@@ -59,5 +59,32 @@ export class LHome {
 		let date3 = new Date();
 		let exp = this.calculateDateDifference(date1, date2 == 'Present' ? date3 : date2 as Date)
 		return `${date1.toLocaleString('default', { month: 'short' })} ${date1.getFullYear()}  -  ${date2 == "Present" ? "Present" : date2.toLocaleString('default', { month: 'short' }) + " " + (date2 as Date).getFullYear()}  •  ${exp[0]} yrs ${exp[1]} mos`;
+	}
+
+	private animationFrameId: number | null = null;
+	private scrollSpeed = 5; // Adjust pixel step per frame for speed
+
+	startScrolling(direction: number, container: HTMLDivElement): void {
+		// Prevent stacking multiple animation frames if mouse re-enters quickly
+		this.stopScrolling();
+
+		const scrollLoop = () => {
+			container.scrollLeft += direction * this.scrollSpeed;
+			this.animationFrameId = requestAnimationFrame(scrollLoop);
+		};
+
+		scrollLoop();
+	}
+
+	stopScrolling(): void {
+		if (this.animationFrameId !== null) {
+			cancelAnimationFrame(this.animationFrameId);
+			this.animationFrameId = null;
+		}
+	}
+
+	ngOnDestroy(): void {
+		// Clean up animation frame to prevent memory leaks on component destruction
+		this.stopScrolling();
 	}
 }
